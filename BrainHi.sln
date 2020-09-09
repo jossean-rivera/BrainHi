@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainHi.Models", "BrainHi.Models\BrainHi.Models.csproj", "{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainHi.Models", "BrainHi.Models\BrainHi.Models.csproj", "{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainHi.Data", "BrainHi.Data\BrainHi.Data.csproj", "{47C5AF98-2A02-4387-B7B3-CDEF300C628F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrainHi.Data", "BrainHi.Data\BrainHi.Data.csproj", "{47C5AF98-2A02-4387-B7B3-CDEF300C628F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

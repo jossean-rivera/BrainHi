@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainHi.Models", "BrainHi.Models\BrainHi.Models.csproj", "{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrainHi.Data", "BrainHi.Data\BrainHi.Data.csproj", "{47C5AF98-2A02-4387-B7B3-CDEF300C628F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E0C8C6-3AC0-4552-8FEE-B53022C5836E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C5AF98-2A02-4387-B7B3-CDEF300C628F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C5AF98-2A02-4387-B7B3-CDEF300C628F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C5AF98-2A02-4387-B7B3-CDEF300C628F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C5AF98-2A02-4387-B7B3-CDEF300C628F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0C18475-10E9-4993-B143-8405CC7FAC79}
+	EndGlobalSection
+EndGlobal

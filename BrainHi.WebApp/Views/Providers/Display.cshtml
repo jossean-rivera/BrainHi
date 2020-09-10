@@ -1,4 +1,5 @@
-﻿@model BrainHi.Models.Provider
+﻿@model BrainHi.WebApp.ViewModels.Providers.ProviderDisplayViewModel
+
     <!-- BREADCRUMB
     ================================================== -->
     <nav class="bg-gray-200">
@@ -19,7 +20,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            @Model.ProviderFullName
+                            @Model.Provider.ProviderFullName
                         </li>
                     </ol>
 
@@ -42,12 +43,12 @@
 
                     <!-- Heading -->
                     <h1 class="display-4 mb-2">
-                        @Model.ProviderFullName
+                        @Model.Provider.ProviderFullName
                     </h1>
 
                     <!-- Text -->
                     <p class="font-size-lg text-gray-700 mb-5 mb-md-0">
-                        @Model.Specialty · City, PR
+                        @Model.Provider.Specialty · City, PR
                     </p>
 
                 </div>
@@ -115,7 +116,7 @@
 
                             <!-- Text -->
                             <p class="font-size-sm mb-0">
-                                <a href="mailto:support@goodthemes.co" class="text-reset">support@goodthemes.co</a>
+                                <a href="mailto:support@example.co" class="text-reset">support@example.co</a>
                             </p>
 
                         </div>
@@ -126,6 +127,38 @@
         </div> <!-- / .container -->
     </section>
 
+    @if (Model.Provider.Appointments.Any())
+    {
+    <section class="py-5 container">
+        <h2>Appointments</h2>
+        <p class="text-muted">The office is already booked for the following times:</p>
+        <table class="table card-border border-primary">
+            <thead class="font-weight-bold">
+                <tr>
+                    <td>#</td>
+                    <td class="d-none d-md-table-cell">From</td>
+                    <td class="d-none d-md-table-cell">To</td>
+                    <td>Patient's Name</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (BrainHi.Models.Appointment appointment in Model.Provider.Appointments)
+                {
+                    <tr>
+                        <td>@appointment.AppointmentId</td>
+                        <td class="d-none d-md-table-cell">@appointment.StartTime.ToString()</td>
+                        <td class="d-none d-md-table-cell">@appointment.EndTime.ToString()</td>
+                        <td>
+                            @appointment.PatientFullName
+                            <span class="d-block d-md-none text-muted">From: @appointment.StartTime.ToString() <br /> To: @appointment.EndTime.ToString()</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    }
+
     <!-- FORM
     ================================================== -->
     <section class="pt-8 pt-md-11 pb-8 pb-md-14">
@@ -135,94 +168,110 @@
 
                     <!-- Card -->
                     <div class="card card-border border-primary shadow-light-lg">
-                        <h3 class="card-header">Schedule an Appointment with us</h3>
                         <div class="card-body">
+                            <h2 class="card-title">Schedule an Appointment with us</h2>
+                            <h5 class="card-subtitle text-muted mb-3">Appointments are for 1 hour</h5>
 
                             <!-- Form -->
-                            <form>
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-
-                                        <div class="form-group mb-5">
-                                            <label for="applyName">
-                                                Full name
-                                            </label>
-                                            <input type="text" class="form-control" id="applyName" placeholder="Full name">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-12 col-md-6">
-
-                                        <div class="form-group mb-5">
-                                            <label for="applyEmail">
-                                                Email
-                                            </label>
-                                            <input type="text" class="form-control" id="applyEmail" placeholder="hello@domain.com">
-                                        </div>
-
-                                    </div>
-                                </div> <!-- / .row -->
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-
-                                        <div class="form-group mb-5">
-                                            <p class="mb-2">
-                                                Cover letter
-                                            </p>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="applyCover">
-                                                <label class="custom-file-label" for="applyCover">
-                                                    Choose file
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-12 col-md-6">
-
-                                        <div class="form-group mb-5">
-                                            <p class="mb-2">
-                                                Resume
-                                            </p>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="applyResume">
-                                                <label class="custom-file-label" for="applyResume">
-                                                    Choose file
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div> <!-- / .row -->
-                                <div class="row">
-                                    <div class="col-12">
-
-                                        <div class="form-group mb-5">
-                                            <label for="applyMessage">
-                                                Why is Landkit important to you?
-                                            </label>
-                                            <textarea id="applyMessage" rows="5" class="form-control" placeholder="Let us know!"></textarea>
-                                        </div>
-
-                                    </div>
-                                </div> <!-- / .row -->
-                                <div class="row align-items-center">
-                                    <div class="col-12 col-md">
-
-                                        <!-- Submit -->
-                                        <button class="btn btn-primary mb-6 mb-md-0 lift">
-                                            Apply now <i class="fe fe-arrow-right ml-3"></i>
-                                        </button>
-
-                                    </div>
-                                    <div class="col-12 col-md-auto">
-
-                                        <p class="font-size-sm text-muted mb-0">
-                                            Application will be send securely and remain private
-                                        </p>
-
-                                    </div>
-                                </div> <!-- / .row -->
+                            <form class="row" method="post" asp-action="Book" asp-controller="Providers">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="ProviderId" value="@Model.Provider.ProviderId" />
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Month" class="control-label"></label>
+                                    <select asp-for="Month" class="form-control">
+                                        <option value="1">Jan</option>
+                                        <option value="2">Feb</option>
+                                        <option value="3">Mar</option>
+                                        <option value="4">Apr</option>
+                                        <option value="5">May</option>
+                                        <option value="6">Jun</option>
+                                        <option value="7">Jul</option>
+                                        <option value="8">Aug</option>
+                                        <option value="9">Sep</option>
+                                        <option value="10">Oct</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Dec</option>
+                                    </select>
+                                    <span asp-validation-for="Month" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Day" class="control-label"></label>
+                                    <select asp-for="Day" class="form-control" asp-items="Enumerable.Range(1, 31).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    <span asp-validation-for="Day" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="Year" class="control-label"></label>
+                                    <select asp-for="Year" class="form-control" asp-items="Enumerable.Range(DateTime.Now.Year, 50).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    <span asp-validation-for="Year" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Hour" class="control-label"></label>
+                                    <select asp-for="Hour" class="form-control" asp-items="Enumerable.Range(6, 12).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    <span asp-validation-for="Hour" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Minute" class="control-label"></label>
+                                    <select asp-for="Minute" class="form-control" asp-items="Enumerable.Range(0, 4).Select(num => new SelectListItem { Value = (num * 15).ToString(), Text = (num * 15).ToString() })"></select>
+                                    <span asp-validation-for="Minute" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="PatientFullName" class="control-label"></label>
+                                    <input asp-for="PatientFullName" class="form-control" />
+                                    <span asp-validation-for="PatientFullName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Patient Date of Birth</label>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="PatientDoBMonth" class="control-label"></label>
+                                    <select asp-for="PatientDoBMonth" class="form-control">
+                                        <option value="1">Jan</option>
+                                        <option value="2">Feb</option>
+                                        <option value="3">Mar</option>
+                                        <option value="4">Apr</option>
+                                        <option value="5">May</option>
+                                        <option value="6">Jun</option>
+                                        <option value="7">Jul</option>
+                                        <option value="8">Aug</option>
+                                        <option value="9">Sep</option>
+                                        <option value="10">Oct</option>
+                                        <option value="11">Nov</option>
+                                        <option value="12">Dec</option>
+                                    </select>
+                                    <span asp-validation-for="PatientDoBMonth" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="PatientDoBDay" class="control-label"></label>
+                                    <select asp-for="PatientDoBDay" class="form-control" asp-items="Enumerable.Range(1, 31).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    <span asp-validation-for="PatientDoBDay" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="PatientDoBYear" class="control-label"></label>
+                                    <select asp-for="PatientDoBYear" class="form-control" asp-items="Enumerable.Range(DateTime.Now.Year - 100, 100).OrderByDescending(num => num).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    <span asp-validation-for="PatientDoBYear" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PatientGender" class="control-label"></label>
+                                    <select asp-for="PatientGender" class="form-control">
+                                        <option value="@BrainHi.Models.PatientGender.Female">Female</option>
+                                        <option value="@BrainHi.Models.PatientGender.Male">Male</option>
+                                        <option value="@BrainHi.Models.PatientGender.NA">NA</option>
+                                    </select>
+                                    <span asp-validation-for="PatientGender" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PatientPhoneNumber" class="control-label"></label>
+                                    <input asp-for="PatientPhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="AppointmentReason" class="control-label"></label>
+                                    <textarea rows="3" asp-for="AppointmentReason" class="form-control"></textarea>
+                                    <span asp-validation-for="AppointmentReason" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="submit" value="Submit" class="btn btn-primary" />
+                                </div>
                             </form>
 
                         </div>

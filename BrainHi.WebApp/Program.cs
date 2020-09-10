@@ -68,9 +68,16 @@ namespace BrainHi.WebApp
         //  Test providers to seed the database
         private static Provider[] TestProviders = new[]
         {
-            new Provider{ ProviderFullName = "Healthcare Provider #1", Specialty = "Internal Medicine" },
-            new Provider{ ProviderFullName = "Healthcare Provider #2", Specialty = "Internal Medicine" },
-            new Provider{ ProviderFullName = "Healthcare Provider #3", Specialty = "Cardiology" },
+            new Provider{ ProviderFullName = "Dr. Martin Martinez", Specialty = "Internal Medicine" },
+            new Provider{ ProviderFullName = "Dr. Richard Rodriguez", Specialty = "Internal Medicine" },
+            new Provider{ ProviderFullName = "Dra. Maria M. Perez", Specialty = "Cardiology" },
+            new Provider{ ProviderFullName = "Dra. Franchesca Cruz", Specialty = "Gastroenterology" },
+            new Provider{ ProviderFullName = "Dra. Emma Rivera", Specialty = "Psychiatry" },
+            new Provider{ ProviderFullName = "Dr. Hector Rivera", Specialty = "Neurology" },
+            new Provider{ ProviderFullName = "Dr. Ricardo Miranda", Specialty = "Paediatric" },
+            new Provider{ ProviderFullName = "Dr. Edgar Falcon", Specialty = "Paediatric" },
+            new Provider{ ProviderFullName = "Dr. Arturo Delgado", Specialty = "Paediatric" },
+            new Provider{ ProviderFullName = "Dra. Kiara Santiago", Specialty = "Cardiology" },
         };
 
         //  Test data for seeding database

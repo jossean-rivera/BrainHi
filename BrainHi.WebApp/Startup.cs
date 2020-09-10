@@ -18,12 +18,18 @@ namespace BrainHi.WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //  Add DB Context
-            services.AddDbContext<BrainHiContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
+            /*
+             * IF YOU HAVE A SQL DATABASE FOR TESTING THEN
+             *  1. UNCOMMENT THE NEXT TWO LINE, 
+             *  2. MAKE SURE THAT THE 'appsetting.json' FILE CONTAINS THE CORRECT CONNECTION STRING TO THE DATABASE 
+             *  3. AND COMMENT THE FOLLOWING LINE: services.AddSingleton<IApplicationRepository, MemoryApplicationRepository>();
+             */
+            //  Add DB Context, and Add Db context as inteface
+            //services.AddDbContext<BrainHiContext>(options => options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
+            //services.AddScoped<IApplicationRepository, ApplicationRepository>();
 
-            //  Add Db context as inteface
-            services.AddScoped<IApplicationRepository, ApplicationRepository>();
-            //services.AddSingleton<IApplicationRepository, MemoryApplicationRepository>();
+            //  IF YOU DON'T HAVE A SQL DATABASE, then use the Memory repository that will keep the objects in memory for testing (not suitable for production)
+            services.AddSingleton<IApplicationRepository, MemoryApplicationRepository>();
 
             //  Add MVC services
             services.AddControllersWithViews()

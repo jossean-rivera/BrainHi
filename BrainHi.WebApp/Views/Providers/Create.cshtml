@@ -1,0 +1,95 @@
+﻿@model BrainHi.Models.Provider
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!-- BREADCRUMB
+================================================== -->
+<nav class="bg-gray-200">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Breadcrumb -->
+                <ol class="breadcrumb breadcrumb-scroll">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-gray-700">
+                            Home
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-action="List" asp-controller="Providers" class="text-gray-700">
+                            Providers
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        New Provider
+                    </li>
+                </ol>
+
+            </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+</nav>
+
+<div class="container my-8">
+    <div class="row align-items-center">
+        <div class="col-12 col-md">
+
+            <!-- Link -->
+            <a asp-action="List" class="font-weight-bold font-size-sm text-decoration-none mb-3">
+                <i class="fe fe-arrow-left mr-3"></i> All providers
+            </a>
+
+            <!-- Heading -->
+            <h1 class="display-4 mb-2">
+                Provider Request
+            </h1>
+
+            <!-- Text -->
+            <p class="font-size-lg text-gray-700 mb-5 mb-md-0">
+                Please provide the following information to submit a request to be considered as a health provider on our platform
+            </p>
+
+        </div>
+    </div> <!-- / .row -->
+    <div class="row">
+        <div class="col-12">
+
+            <!-- Divider -->
+            <hr class="my-6 my-md-8 border-gray-300">
+
+        </div>
+    </div> <!-- / .row -->
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProviderFullName" class="control-label"></label>
+                    <input asp-for="ProviderFullName" class="form-control" />
+                    <span asp-validation-for="ProviderFullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Specialty" class="control-label"></label>
+                    <select asp-for="Specialty" class="form-control">
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Endocrinology">Endocrinology</option>
+                        <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Internal Medicine">Internal Medicine</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Rheumatology">Rheumatology</option>
+                        <option value="Paediatric">Paediatric</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                        <option value="Surgery">Surgery</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span asp-validation-for="Specialty" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -19,25 +19,13 @@ namespace BrainHi.WebApp.Controllers
 
         //  Displays view with a list of providers
         [HttpGet]
-        public async Task<ViewResult> List(string specialty = null, string name = null, string query = null)
+        public async Task<ViewResult> List(string query = null)
         {
             //  Query all providers from repository
             IEnumerable<Provider> providers = await _repository.GetEntitiesAsync<Provider>();
 
             //  Filter providers to display depending on the provided parameters
             IEnumerable<Provider> filterProviders = providers;
-
-            if (!string.IsNullOrEmpty(specialty))
-            {
-                //  Filter by specialty (use non case sensitive string comparison)
-                filterProviders = filterProviders.Where(provider => provider.Specialty.Equals(specialty, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                //  Filter by name (use non case sensitive contains operation)
-                filterProviders = filterProviders.Where(provider => provider.ProviderFullName.Contains(name, StringComparison.OrdinalIgnoreCase));
-            }
 
             if (!string.IsNullOrEmpty(query))
             {
@@ -46,7 +34,7 @@ namespace BrainHi.WebApp.Controllers
                     provider.Specialty.Contains(query, StringComparison.OrdinalIgnoreCase));
             }
 
-            return View(model: (providers, filterProviders));
+            return View(model: (providers, filterProviders, query));
         }
 
         //  Displays view with details of a specific provider
@@ -62,5 +50,27 @@ namespace BrainHi.WebApp.Controllers
             //  Return view result
             return View(provider);
         }
+
+        //  Displays form to create a new provider
+        [HttpGet("new")]
+        public ViewResult Create() => View();
+
+        //  Post action to create a new provider
+        [HttpPost("new")]
+        public async Task<IActionResult> Create([Bind(nameof(Provider.ProviderFullName), nameof(Provider.Specialty))] Provider provider)
+        {
+            //  Display error messages
+            if (!ModelState.IsValid) return View(provider);
+
+            //  Add provider to repository
+            await _repository.AddEntityAsync(provider);
+
+            //  Redirect to confirm page
+            return RedirectToAction(nameof(CreateConfirm));
+        }
+
+        //  Displays page with successful message about creating a new provider
+        [HttpGet("confirm")]
+        public ViewResult CreateConfirm() => View();
     }
 }

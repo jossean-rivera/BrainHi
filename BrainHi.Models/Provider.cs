@@ -39,7 +39,7 @@ namespace BrainHi.Models
         /// <summary>
         /// Navigation property of the appointments that the provider has
         /// </summary>
-        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
         //  Implement interface explicitly. Map Id to the ProviderId
         int IBrainHiObject.Id { get => ProviderId; set => ProviderId = value; }

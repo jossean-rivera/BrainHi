@@ -23,6 +23,7 @@ namespace BrainHi.WebApp
 
             //  Add Db context as inteface
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
+            //services.AddSingleton<IApplicationRepository, MemoryApplicationRepository>();
 
             //  Add MVC services
             services.AddControllersWithViews()

@@ -8,7 +8,7 @@ namespace BrainHi.Models
     /// <summary>
     /// Meeting set at a specific time for a patient to see a doctor
     /// </summary>
-    public class Appointment : IBrainHiObject
+    public class Appointment : IBrainHiObject, IProviderDependent
     {
         /// <summary>
         /// Primary identifier of the appointment

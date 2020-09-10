@@ -64,6 +64,24 @@
         </div>
     </nav>
 
+    @if (TempData["Notification"] != null)
+    {
+        <!-- NOTIFICATION -->
+        <div class="alert alert-@TempData["NotificationType"] rounded-0 mb-0">
+            <div class="container-md">
+                <div class="row">
+                    <div class="col-12">
+
+                        <!-- Text -->
+                        <p class="text-center mb-0">
+                            @TempData["Notification"]
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
     <!-- CONTENT -->
     @RenderBody()
 

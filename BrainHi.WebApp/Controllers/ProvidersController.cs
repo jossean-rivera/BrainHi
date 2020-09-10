@@ -13,6 +13,8 @@ namespace BrainHi.WebApp.Controllers
     [Route("/providers")]
     public class ProvidersController : Controller
     {
+        private const string InvalidDateErrorMessage = "Invalid date";
+
         //  Application repository of the application
         private readonly IApplicationRepository _repository;
 
@@ -68,16 +70,100 @@ namespace BrainHi.WebApp.Controllers
             if (provider == null) return View("NotFound");
 
             //  Display any errors
-            if (!ModelState.IsValid) return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+            if (!ModelState.IsValid) 
+            {
+                SetErrorFormNotification();
+                return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+            }
 
-            //  Save appointment (assuming that the end datetime is 1 hour after the selected date)
+            #region DateTime Custom Validations
+            //  Perform some simple validation of dates
+            DateTime startTime;
+            DateTime endTime;
+            DateTime dob;
+
+            try
+            {
+                //  Try to set the date time of start and end (assuming that the end datetime is 1 hour after the selected date)
+                startTime = new DateTime(inputModel.Year.Value, inputModel.Month.Value, inputModel.Day.Value, inputModel.Hour.Value, inputModel.Minute.Value, 0);
+                endTime = new DateTime(inputModel.Year.Value, inputModel.Month.Value, inputModel.Day.Value, inputModel.Hour.Value + 1, inputModel.Minute.Value, 0);
+
+                //  Appointment must be in the future
+                if (startTime < DateTime.Now)
+                {
+                    //  It's an invalid date
+                    //  Set the model state for Month, Day, and Year
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.Month), InvalidDateErrorMessage);
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.Day), InvalidDateErrorMessage);
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.Year), InvalidDateErrorMessage);
+
+                    //  Set error message
+                    SetNotification("Appointment date must be in the future. Change the date and try again.");
+
+                    //  Display errors
+                    return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                //  It's an invalid date
+                //  Set the model state for Month, Day, and Year
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.Month), InvalidDateErrorMessage);
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.Day), InvalidDateErrorMessage);
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.Year), InvalidDateErrorMessage);
+
+                //  Set error message
+                SetErrorFormNotification();
+
+                //  Display errors
+                return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+            }
+
+            try
+            {
+                //  Try to create a date for the patient's date of birth
+                dob = new DateTime(inputModel.PatientDoBYear.Value, inputModel.PatientDoBMonth.Value, inputModel.PatientDoBDay.Value);
+
+                //  Date of birth must be in the past
+                if (dob > DateTime.Now)
+                {
+                    //  It's an invalid date
+                    //  Set the model state for Month, Day, and Year
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBMonth), InvalidDateErrorMessage);
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBDay), InvalidDateErrorMessage);
+                    ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBYear), InvalidDateErrorMessage);
+
+                    //  Set error message
+                    SetNotification("Date of Birth must be in the past. Change the date and try again.");
+
+                    //  Display errors
+                    return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                //  It's an invalid date
+                //  Set the model state for Month, Day, and Year
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBMonth), InvalidDateErrorMessage);
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBDay), InvalidDateErrorMessage);
+                ModelState.AddModelError(nameof(ProviderDisplayViewModel.PatientDoBYear), InvalidDateErrorMessage);
+
+                //  Set error message
+                SetErrorFormNotification();
+
+                //  Display errors
+                return View(nameof(Display), new ProviderDisplayViewModel { Provider = provider });
+            }
+            #endregion
+
+            //  Save appointment
             Appointment appointment = await _repository.AddEntityAsync(new Appointment
             {
                 ProviderId = inputModel.ProviderId,
                 AppointmentReason = inputModel.AppointmentReason,
-                EndTime = new DateTime(inputModel.Year.Value, inputModel.Month.Value, inputModel.Day.Value, inputModel.Hour.Value + 1, inputModel.Minute.Value, 0),
-                StartTime = new DateTime(inputModel.Year.Value, inputModel.Month.Value, inputModel.Day.Value, inputModel.Hour.Value, inputModel.Minute.Value, 0),
-                PatientDoB = new DateTime(inputModel.PatientDoBYear.Value, inputModel.PatientDoBMonth.Value, inputModel.PatientDoBDay.Value),
+                EndTime = endTime,
+                StartTime = startTime,
+                PatientDoB = dob,
                 PatientFullName = inputModel.PatientFullName,
                 PatientGender = inputModel.PatientGender,
                 PatientPhoneNumber = inputModel.PatientPhoneNumber
@@ -118,7 +204,11 @@ namespace BrainHi.WebApp.Controllers
         public async Task<IActionResult> Create([Bind(nameof(Provider.ProviderFullName), nameof(Provider.Specialty))] Provider provider)
         {
             //  Display error messages
-            if (!ModelState.IsValid) return View(provider);
+            if (!ModelState.IsValid) 
+            {
+                SetErrorFormNotification();
+                return View(provider); 
+            }
 
             //  Add provider to repository
             await _repository.AddEntityAsync(provider);
@@ -130,5 +220,22 @@ namespace BrainHi.WebApp.Controllers
         //  Displays page with successful message about creating a new provider
         [HttpGet("confirm")]
         public ViewResult CreateConfirm() => View();
+
+        /// <summary>
+        /// Uses the <see cref="Controller.TempData"/> property to set a temporarily message that will be displayed at the top of the page
+        /// </summary>
+        /// <param name="message">Actual message to display</param>
+        /// <param name="type">Bootstrap background color (e.g., primary, secondary, danger, info, success) [Defaults to 'danger']</param>
+        private void SetNotification(string message, string type = "danger")
+        {
+            //  Save message and bg color of notification 
+            TempData["Notification"] = message;
+            TempData["NotificationType"] = type;
+        }
+
+        /// <summary>
+        /// Sets general message for errors of a form
+        /// </summary>
+        private void SetErrorFormNotification() => SetNotification("Please correct all highlighted errors and try again.");
     }
 }

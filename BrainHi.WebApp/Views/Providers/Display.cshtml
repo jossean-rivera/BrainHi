@@ -1,0 +1,234 @@
+﻿@model BrainHi.Models.Provider
+    <!-- BREADCRUMB
+    ================================================== -->
+    <nav class="bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Breadcrumb -->
+                    <ol class="breadcrumb breadcrumb-scroll">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-gray-700">
+                                Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-action="List" asp-controller="Providers" class="text-gray-700">
+                                Providers
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model.ProviderFullName
+                        </li>
+                    </ol>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </nav>
+
+    <!-- CONTENT
+    ================================================== -->
+    <section class="pt-8 pt-md-11">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md">
+
+                    <!-- Link -->
+                    <a asp-action="List" class="font-weight-bold font-size-sm text-decoration-none mb-3">
+                        <i class="fe fe-arrow-left mr-3"></i> All providers
+                    </a>
+
+                    <!-- Heading -->
+                    <h1 class="display-4 mb-2">
+                        @Model.ProviderFullName
+                    </h1>
+
+                    <!-- Text -->
+                    <p class="font-size-lg text-gray-700 mb-5 mb-md-0">
+                        @Model.Specialty · City, PR
+                    </p>
+
+                </div>
+            </div> <!-- / .row -->
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Divider -->
+                    <hr class="my-6 my-md-8 border-gray-300">
+
+                </div>
+            </div> <!-- / .row -->
+            <div class="row">
+                <div class="col-12 col-md-8">
+
+                    <!-- Heading -->
+                    <h3>
+                        Who we are
+                    </h3>
+
+                    <!-- Text -->
+                    <p class="text-gray-800 mb-6 mb-md-8">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi erat, pretium sit amet ultricies ultrices, vulputate vitae ligula. Pellentesque ultrices a est vel egestas. Proin ullamcorper velit quam, in ullamcorper leo lobortis pellentesque. Mauris at lacinia nibh, non hendrerit purus. Phasellus a eros vestibulum, tristique nibh sed, tincidunt leo. Mauris consectetur erat eget mi tempus, feugiat hendrerit augue lobortis. Morbi lacinia elit id facilisis accumsan. Etiam leo nibh, aliquam quis est ultrices, condimentum maximus elit. Aliquam erat volutpat. Suspendisse ut ante finibus, auctor dolor accumsan, venenatis purus. Maecenas sem ante, condimentum ut nunc cursus, euismod rutrum ex. Ut gravida porta massa, at vehicula nisl rhoncus tristique. Cras a metus tempus, auctor diam id, viverra tellus.
+                    </p>
+
+                    <p class="text-gray-800 mb-6 mb-md-8">
+                        Cras dignissim dui a nulla auctor, in euismod neque vestibulum. Morbi sagittis ipsum tortor, quis pharetra lectus viverra sed. Donec elementum rutrum metus, sit amet vulputate est dignissim eu. Quisque est felis, lacinia sit amet nisl sed, molestie interdum tortor. Morbi bibendum in erat lacinia egestas. Vestibulum fringilla sapien nec sapien mollis, vitae placerat turpis ullamcorper. Sed id leo tincidunt, faucibus nisl eu, vehicula lectus. Etiam vel ex justo. Nulla facilisi. In tristique est sit amet augue feugiat, eu porttitor velit molestie.
+                    </p>
+
+                    <p class="text-gray-800 mb-6 mb-md-8">
+                        Aenean consectetur varius lacus vitae elementum. Nunc mauris lacus, ultrices sed sagittis at, gravida eget orci. Integer interdum rutrum consequat. Aliquam tempus ligula et fringilla imperdiet. Nulla ut varius sapien. Phasellus auctor felis eget libero varius, a consectetur mauris mollis. Suspendisse fringilla, elit at elementum rhoncus, ipsum felis condimentum enim, ac gravida lorem justo a tortor. Nunc bibendum odio ut nunc posuere, et viverra dolor viverra. Donec ex erat, ullamcorper eu ullamcorper quis, vestibulum sit amet ligula. Ut at velit turpis. Etiam gravida est vitae mi fermentum, eu dictum metus accumsan. Nulla eu lectus volutpat eros sagittis consequat. Curabitur eget nulla et lacus aliquam egestas a et justo. Duis tincidunt ut velit non fermentum.
+                    </p>
+
+                </div>
+                <div class="col-12 col-md-4">
+
+                    <!-- Card -->
+                    <div class="card shadow-light-lg mb-5">
+                        <div class="card-body">
+
+                            <!-- Heading -->
+                            <h4>
+                                Need help?
+                            </h4>
+
+                            <!-- Text -->
+                            <p class="font-size-sm text-gray-800 mb-5">
+                                Not sure exactly what you're looking for?
+                            </p>
+
+                            <!-- Heading -->
+                            <h6 class="font-weight-bold text-uppercase text-gray-700 mb-2">
+                                Call anytime
+                            </h6>
+
+                            <!-- Text -->
+                            <p class="font-size-sm mb-5">
+                                <a href="tel:555-123-4567" class="text-reset">(555) 123-4567</a>
+                            </p>
+
+                            <!-- Heading -->
+                            <h6 class="font-weight-bold text-uppercase text-gray-700 mb-2">
+                                Email us
+                            </h6>
+
+                            <!-- Text -->
+                            <p class="font-size-sm mb-0">
+                                <a href="mailto:support@goodthemes.co" class="text-reset">support@goodthemes.co</a>
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- FORM
+    ================================================== -->
+    <section class="pt-8 pt-md-11 pb-8 pb-md-14">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Card -->
+                    <div class="card card-border border-primary shadow-light-lg">
+                        <h3 class="card-header">Schedule an Appointment with us</h3>
+                        <div class="card-body">
+
+                            <!-- Form -->
+                            <form>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+
+                                        <div class="form-group mb-5">
+                                            <label for="applyName">
+                                                Full name
+                                            </label>
+                                            <input type="text" class="form-control" id="applyName" placeholder="Full name">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-md-6">
+
+                                        <div class="form-group mb-5">
+                                            <label for="applyEmail">
+                                                Email
+                                            </label>
+                                            <input type="text" class="form-control" id="applyEmail" placeholder="hello@domain.com">
+                                        </div>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+
+                                        <div class="form-group mb-5">
+                                            <p class="mb-2">
+                                                Cover letter
+                                            </p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="applyCover">
+                                                <label class="custom-file-label" for="applyCover">
+                                                    Choose file
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-md-6">
+
+                                        <div class="form-group mb-5">
+                                            <p class="mb-2">
+                                                Resume
+                                            </p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="applyResume">
+                                                <label class="custom-file-label" for="applyResume">
+                                                    Choose file
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <div class="form-group mb-5">
+                                            <label for="applyMessage">
+                                                Why is Landkit important to you?
+                                            </label>
+                                            <textarea id="applyMessage" rows="5" class="form-control" placeholder="Let us know!"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                                <div class="row align-items-center">
+                                    <div class="col-12 col-md">
+
+                                        <!-- Submit -->
+                                        <button class="btn btn-primary mb-6 mb-md-0 lift">
+                                            Apply now <i class="fe fe-arrow-right ml-3"></i>
+                                        </button>
+
+                                    </div>
+                                    <div class="col-12 col-md-auto">
+
+                                        <p class="font-size-sm text-muted mb-0">
+                                            Application will be send securely and remain private
+                                        </p>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>

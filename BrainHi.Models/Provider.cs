@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace BrainHi.Models
@@ -34,6 +35,11 @@ namespace BrainHi.Models
         [JsonPropertyName("specialty")]
         [Display(Name = "Specialty")]
         public string Specialty { get; set; }
+
+        /// <summary>
+        /// Navigation property of the appointments that the provider has
+        /// </summary>
+        public ICollection<Appointment> Appointments { get; set; }
 
         //  Implement interface explicitly. Map Id to the ProviderId
         int IBrainHiObject.Id { get => ProviderId; set => ProviderId = value; }

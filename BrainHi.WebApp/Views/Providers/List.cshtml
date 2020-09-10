@@ -1,0 +1,228 @@
+﻿@model (IEnumerable<BrainHi.Models.Provider> AllProviders, IEnumerable<BrainHi.Models.Provider> FilteredProviders)
+
+    <!-- BREADCRUMB
+    ================================================== -->
+    <nav class="bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Breadcrumb -->
+                    <ol class="breadcrumb breadcrumb-scroll">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-gray-700">
+                                Home
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Providers
+                        </li>
+                    </ol>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </nav>
+
+    <!-- CONTENT
+    ================================================== -->
+    <section class="pt-6 pt-md-8 pb-8 mb-md-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row mb-6 mb-md-8">
+                        <div class="col-auto">
+
+                            <!-- Icon -->
+                            <div class="icon-circle bg-primary text-white">
+                                <i class="fe fe-users"></i>
+                            </div>
+
+                        </div>
+                        <div class="col ml-n4">
+
+                            <!-- Heading -->
+                            <h2 class="font-weight-bold mb-0">
+                                Providers
+                            </h2>
+
+                            <!-- Text -->
+                            <p class="font-size-lg text-gray-700 mb-0">
+                                Let’s find you the right provider.
+                            </p>
+
+                        </div>
+                    </div> <!-- / .row -->
+                    <!-- Form -->
+                    <form method="get" class="rounded shadow mt-n6 mb-4" autocomplete="off" asp-action="List" asp-controller="Providers">
+                        <div class="input-group input-group-lg">
+
+                            <!-- Prepend -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-0 pr-1">
+                                    <i class="fe fe-search"></i>
+                                </span>
+                            </div>
+
+                            <!-- Input -->
+                            <input name="query" type="text" class="form-control border-0 px-1" aria-label="Search for your doctor's name or specialty..." placeholder="Search for your doctor's name or specialty...">
+
+                            <!-- Append -->
+                            <div class="input-group-append">
+                                <span class="input-group-text border-0 py-0 pl-1 pr-3">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        Search
+                                    </button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </form>
+
+                    @*  Group Providers by Specialty *@
+                    @foreach (var providerGroup in Model.FilteredProviders.GroupBy(provider => provider.Specialty))
+                    {
+                        <!-- Card -->
+                        <div class="card shadow-light-lg accordion mb-5 mb-md-6" id="accordion">
+                            <div class="list-group">
+                                <div class="list-group-item">
+
+                                    <!-- Header -->
+                                    <div class="d-flex align-items-center">
+                                        <div class="mr-auto">
+
+                                            <!-- Heading -->
+                                            <h4 class="font-weight-bold mb-0">
+                                                @providerGroup.Key
+                                            </h4>
+
+                                        </div>
+
+                                        <!-- Badge -->
+                                        <span class="badge badge-pill badge-success-soft ml-4">
+                                            <span class="h6 text-uppercase">
+                                                @providerGroup.Count() providers
+                                            </span>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                @*  Display the providers in the current group *@
+                                @foreach (BrainHi.Models.Provider p in providerGroup)
+                                {
+                                    <div class="list-group-item">
+
+                                        <!-- Toggle -->
+                                        <a class="d-flex align-items-center text-reset text-decoration-none" data-toggle="collapse" href="#provider-@p.ProviderId" role="button" aria-expanded="false" aria-controls="provider-@p.ProviderId">
+
+                                            <!-- Title -->
+                                            <span class="mr-4">
+                                                @p.ProviderFullName
+                                            </span>
+
+                                            <!-- Metadata -->
+                                            <div class="text-muted ml-auto">
+
+                                                <!-- Text -->
+                                                <span class="font-size-sm mr-4 d-none d-md-inline">
+                                                    Somecity, PR
+                                                </span>
+
+                                                <!-- Chevron -->
+                                                <span class="collapse-chevron text-muted">
+                                                    <i class="fe fe-lg fe-chevron-down"></i>
+                                                </span>
+
+                                            </div>
+
+                                        </a>
+
+                                        <!-- Collapse -->
+                                        <div class="collapse" id="provider-@p.ProviderId" data-parent="#accordion">
+                                            <div class="py-5">
+
+                                                <!-- Text -->
+                                                <p class="text-gray-700">
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt rerum minima a possimus, amet perferendis, temporibus obcaecati pariatur. Reprehenderit magnam necessitatibus vel culpa provident quas nesciunt sunt aut cupiditate fugiat! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt rerum minima a possimus, amet perferendis, temporibus obcaecati pariatur. Reprehenderit magnam necessitatibus vel culpa provident quas nesciunt sunt aut cupiditate fugiat!
+                                                </p>
+
+                                                <div class="d-flex align-items-center">
+
+                                                    <!-- View Button -->
+                                                    <a class="btn btn-primary btn-sm" asp-action="Display" asp-controller="Providers" asp-route-id="@p.ProviderId">
+                                                        View
+                                                    </a>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    }
+
+                    <!-- Divider -->
+                    <hr class="border-gray-300 my-6 my-md-8">
+
+                    <!-- Header -->
+                    <h3 class="font-weight-bold">
+                        More specialties
+                    </h3>
+
+                    <!-- Text -->
+                    <p class="text-muted mb-6 mb-md-8">
+                        Find the correct doctor searching by specialty
+                    </p>
+
+                    <!-- Categories -->
+                    <div class="row">
+
+                        @*  Group providers by Specialty *@
+                        @foreach (var providerGroup in Model.AllProviders.GroupBy(provider => provider.Specialty))
+                        {
+                            <div class="col-12 col-md-6 col-lg-4">
+
+                                <!-- Card -->
+                                <div class="card card-border border-dark shadow-lg mb-6 mb-md-8 mb-lg-5 lift lift-lg">
+                                    <a asp-action="List" asp-controller="Providers" asp-route-query="@providerGroup.Key">
+                                        <div class="card-body text-center">
+
+                                            <!-- Icon -->
+                                            <div class="icon-circle bg-dark text-white mb-5">
+                                                <i class="fe fe-users"></i>
+                                            </div>
+
+                                            <!-- Heading -->
+                                            <h4>
+                                                @providerGroup.Key
+                                            </h4>
+
+                                            <!-- Text -->
+                                            <p class="text-gray-700 mb-5">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                            </p>
+
+                                            <!-- Badge -->
+                                            <span class="badge badge-pill badge-dark-soft">
+                                                <span class="h6 text-uppercase">
+                                                    @providerGroup.Count() providers
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        }
+                    </div> <!-- / .row -->
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>

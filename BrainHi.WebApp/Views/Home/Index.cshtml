@@ -1,4 +1,7 @@
-﻿
+﻿@{ 
+    Layout = null;
+}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -65,7 +68,7 @@
                 <div class="col-12">
 
                     <!-- Form -->
-                    <form class="rounded shadow mt-n6 mb-4">
+                    <form method="get" class="rounded shadow mt-n6 mb-4" autocomplete="off" asp-action="List" asp-controller="Providers">
                         <div class="input-group input-group-lg">
 
                             <!-- Prepend -->
@@ -76,7 +79,7 @@
                             </div>
 
                             <!-- Input -->
-                            <input type="text" class="form-control border-0 px-1" aria-label="Search for your issue..." placeholder="Search for your issue...">
+                            <input name="query" type="text" class="form-control border-0 px-1" aria-label="Search for your doctor's name or specialty..." placeholder="Search for your doctor's name or specialty...">
 
                             <!-- Append -->
                             <div class="input-group-append">
@@ -104,7 +107,7 @@
 
                             <!-- Text -->
                             <p class="font-size-sm text-muted mb-0">
-                                Redownload my theme, Request an invoice, Update my .zip
+                                Internal Medicine, Cardiology, Gastroenterology
                             </p>
 
                         </div>

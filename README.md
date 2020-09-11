@@ -1,6 +1,8 @@
 # Overview
 This project consists of a web application built on ASP.NET Core MVC where users can find a health provider and submit an appointment to the office. Health providers can also be added to the system. The project was created following the instructions of [BrainHi Software Engineer Interview Project](https://www.notion.so/BrainHi-Software-Engineer-Interview-Project-c973a3794852449a818c82b4b6c9e714). 
 
+The web application is hosted temporarily in Azure at https://brainhidemo.azurewebsites.net/
+
 # Getting Started
 ### Software Dependencies
 Make sure you have installed the following:

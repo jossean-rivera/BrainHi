@@ -54,7 +54,7 @@
                         </div>
                     </div> <!-- / .row -->
                     <!-- Form -->
-                    <form method="get" class="rounded shadow mt-n6 mb-4" autocomplete="off" asp-action="List" asp-controller="Providers">
+                    <form method="get" class="rounded shadow mb-4 mt-2" autocomplete="off" asp-action="List" asp-controller="Providers">
                         <div class="input-group input-group-lg">
 
                             <!-- Prepend -->
@@ -117,7 +117,7 @@
                                         <div class="list-group-item">
 
                                             <!-- Toggle -->
-                                            <a class="d-flex align-items-center text-reset text-decoration-none" data-toggle="collapse" href="#provider-@p.ProviderId" role="button" aria-expanded="false" aria-controls="provider-@p.ProviderId">
+                                            <a class="d-flex align-items-center text-reset text-decoration-none" asp-action="Display" asp-controller="Providers" asp-route-id="@p.ProviderId">
 
                                                 <!-- Title -->
                                                 <span class="mr-4">
@@ -127,40 +127,14 @@
                                                 <!-- Metadata -->
                                                 <div class="text-muted ml-auto">
 
-                                                    <!-- Text -->
-                                                    <span class="font-size-sm mr-4 d-none d-md-inline">
-                                                        Somecity, PR
-                                                    </span>
-
                                                     <!-- Chevron -->
                                                     <span class="collapse-chevron text-muted">
-                                                        <i class="fe fe-lg fe-chevron-down"></i>
+                                                        <i class="fe fe-lg fe-chevron-right"></i>
                                                     </span>
 
                                                 </div>
 
                                             </a>
-
-                                            <!-- Collapse -->
-                                            <div class="collapse" id="provider-@p.ProviderId" data-parent="#accordion">
-                                                <div class="py-5">
-
-                                                    <!-- Text -->
-                                                    <p class="text-gray-700">
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt rerum minima a possimus, amet perferendis, temporibus obcaecati pariatur. Reprehenderit magnam necessitatibus vel culpa provident quas nesciunt sunt aut cupiditate fugiat! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt rerum minima a possimus, amet perferendis, temporibus obcaecati pariatur. Reprehenderit magnam necessitatibus vel culpa provident quas nesciunt sunt aut cupiditate fugiat!
-                                                    </p>
-
-                                                    <div class="d-flex align-items-center">
-
-                                                        <!-- View Button -->
-                                                        <a class="btn btn-primary btn-sm" asp-action="Display" asp-controller="Providers" asp-route-id="@p.ProviderId">
-                                                            View
-                                                        </a>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
 
                                         </div>
                                     }
@@ -219,11 +193,6 @@
                                             <h4>
                                                 @providerGroup.Key
                                             </h4>
-
-                                            <!-- Text -->
-                                            <p class="text-gray-700 mb-5">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            </p>
 
                                             <!-- Badge -->
                                             <span class="badge badge-pill badge-dark-soft">

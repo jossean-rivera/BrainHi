@@ -64,22 +64,9 @@
             <div class="row">
                 <div class="col-12 col-md-8">
 
-                    <!-- Heading -->
-                    <h3>
-                        Who we are
-                    </h3>
-
                     <!-- Text -->
                     <p class="text-gray-800 mb-6 mb-md-8">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mi erat, pretium sit amet ultricies ultrices, vulputate vitae ligula. Pellentesque ultrices a est vel egestas. Proin ullamcorper velit quam, in ullamcorper leo lobortis pellentesque. Mauris at lacinia nibh, non hendrerit purus. Phasellus a eros vestibulum, tristique nibh sed, tincidunt leo. Mauris consectetur erat eget mi tempus, feugiat hendrerit augue lobortis. Morbi lacinia elit id facilisis accumsan. Etiam leo nibh, aliquam quis est ultrices, condimentum maximus elit. Aliquam erat volutpat. Suspendisse ut ante finibus, auctor dolor accumsan, venenatis purus. Maecenas sem ante, condimentum ut nunc cursus, euismod rutrum ex. Ut gravida porta massa, at vehicula nisl rhoncus tristique. Cras a metus tempus, auctor diam id, viverra tellus.
-                    </p>
-
-                    <p class="text-gray-800 mb-6 mb-md-8">
-                        Cras dignissim dui a nulla auctor, in euismod neque vestibulum. Morbi sagittis ipsum tortor, quis pharetra lectus viverra sed. Donec elementum rutrum metus, sit amet vulputate est dignissim eu. Quisque est felis, lacinia sit amet nisl sed, molestie interdum tortor. Morbi bibendum in erat lacinia egestas. Vestibulum fringilla sapien nec sapien mollis, vitae placerat turpis ullamcorper. Sed id leo tincidunt, faucibus nisl eu, vehicula lectus. Etiam vel ex justo. Nulla facilisi. In tristique est sit amet augue feugiat, eu porttitor velit molestie.
-                    </p>
-
-                    <p class="text-gray-800 mb-6 mb-md-8">
-                        Aenean consectetur varius lacus vitae elementum. Nunc mauris lacus, ultrices sed sagittis at, gravida eget orci. Integer interdum rutrum consequat. Aliquam tempus ligula et fringilla imperdiet. Nulla ut varius sapien. Phasellus auctor felis eget libero varius, a consectetur mauris mollis. Suspendisse fringilla, elit at elementum rhoncus, ipsum felis condimentum enim, ac gravida lorem justo a tortor. Nunc bibendum odio ut nunc posuere, et viverra dolor viverra. Donec ex erat, ullamcorper eu ullamcorper quis, vestibulum sit amet ligula. Ut at velit turpis. Etiam gravida est vitae mi fermentum, eu dictum metus accumsan. Nulla eu lectus volutpat eros sagittis consequat. Curabitur eget nulla et lacus aliquam egestas a et justo. Duis tincidunt ut velit non fermentum.
+                        Feel free to schedule an appointment with our office.
                     </p>
 
                 </div>
@@ -206,7 +193,11 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="Hour" class="control-label"></label>
-                                    <select asp-for="Hour" class="form-control" asp-items="Enumerable.Range(6, 12).Select(num => new SelectListItem { Value = num.ToString(), Text = num.ToString() })"></select>
+                                    @{ 
+                                        //  Local function to format the hour number
+                                        Func<int, string> HourFormat = num => num < 12 ? $"{num} AM" : num == 12 ? "12 PM" : $"{num % 12} PM";
+                                    }
+                                    <select asp-for="Hour" class="form-control" asp-items="Enumerable.Range(6, 12).Select(num => new SelectListItem { Value = num.ToString(), Text = HourFormat(num) })"></select>
                                     <span asp-validation-for="Hour" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">

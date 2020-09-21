@@ -47,6 +47,7 @@ namespace BrainHi.WebApp
             {
                 app.UseHsts();
                 app.UseHttpsRedirection();
+                app.UseExceptionHandler("/not-found");
             }
 
             app.UseRouting();
